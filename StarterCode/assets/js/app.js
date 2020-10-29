@@ -1,4 +1,3 @@
-
 // Set height and width for svg
 
 let svgWidth = 960;
