@@ -102,6 +102,7 @@ function renderText(chosenCircleText, newXScale, newYScale, chosenXAxis, chosenY
 
 // Set up function to update chosen circles using tooltip
 function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
+    
 // Set up x axis
     if (chosenXAxis === "poverty") {
         let xlabel = "Poverty: ";
