@@ -103,7 +103,7 @@ function renderText(chosencircleText, newXScale, newYScale, chosenXAxis, chosenY
 }
 
 // Set up function to update chosen circles using tooltip
-function updateToolTip(chosenXAxis, chosenYAxis, chosencircles) {
+function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
 
 // Set up x axis
     if (chosenXAxis === "poverty") {
