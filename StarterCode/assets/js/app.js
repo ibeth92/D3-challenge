@@ -131,22 +131,27 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     .offset([120, -60])
     .html(function(d) {
         if (chosenXAxis === "age") {
+
 // Format yAxis tooltip labels as percentages
 // Display age as integer
 return (`${d.state}<hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
 } else if (chosenXAxis !== "poverty" && chosenXAxis !== "age") {
+
 // Display income as dollars
   return (`${d.state}<hr>${xlabel}$${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
 } else {
+
 // Display poverty as percentage
   return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
 }      
 });
 chosenCircles.call(toolTip);
+
 // Mouseon event
 chosenCircles.on("mouseover", function(data) {
 toolTip.show(data, this);
 })
+
 // Mouseout event
 .on("mouseout", function(data,index) {
 toolTip.hide(data)
@@ -154,6 +159,38 @@ toolTip.hide(data)
 return chosenCircles;
 }
 
-// Import Data
-d3.csv("assets/data/data.csv").then(function(healthData) {
-
+// Import data from CSV
+d3.csv("assets/data/data.csv")
+    .then(function(healthData) {
+// Parse data using chosen parameters
+healthData.forEach(function(data) {
+    data.poverty = +data.poverty;
+    data.healthcare = +data.healthcare;
+    data.age = +data.age;
+    data.income = +data.income;
+    data.smokes = +data.smokes;
+    data.obesity = +data.obesity;
+    });
+    
+// Set up linear scale function
+    let xLinearScale = xScale(healthData, chosenXAxis);
+    let yLinearScale = yScale(healthData, chosenYAxis);
+    
+// Set up xy axis functions
+    let bottomAxis = d3.axisBottom(xLinearScale);
+    let leftAxis = d3.axisLeft(yLinearScale);
+    
+// Append Axes to the chart
+    let xAxis = chosenCircles
+    .append("g")
+    .classed("x-axis", true)
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+    
+    let yAxis = chosenCircles
+    .append("g")
+    .classed("y-axis", true)
+    .call(leftAxis);
+    
+    
+    
