@@ -180,17 +180,89 @@ healthData.forEach(function(data) {
     let bottomAxis = d3.axisBottom(xLinearScale);
     let leftAxis = d3.axisLeft(yLinearScale);
     
-// Append Axes to the chart
+// Append x axis
     let xAxis = chosenCircles
     .append("g")
     .classed("x-axis", true)
     .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
-    
+
+// Append y axis
     let yAxis = chosenCircles
     .append("g")
     .classed("y-axis", true)
     .call(leftAxis);
+
+// Create circles
+    let chosenCircles = chosenCircles
+    .selectAll("circle")
+    .data(healthData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    .attr("cy", d => yLinearScale(d[chosenYAxis]))
+    .attr("r", "15")
+    .attr("fill", "pink")
+    .attr("opacity", ".5");
     
+// Import abbreviated text to circles
+    let chosenCircleText = chosenCircles.selectAll()
+    .data(healthData)
+    .enter()
+    .append("text")
+    .text(d => (d.abbr))
+    .attr("x", d => xLinearScale(d[chosenXAxis]))
+    .attr("y", d => yLinearScale(d[chosenYAxis]))
+    .style("font-size", "11px")
+    .style("text-anchor", "middle")
+    .style('fill', 'black');
     
+    let labelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
     
+    let povertyLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("value", "poverty") // value to grab for event listener.
+    .classed("active", true)
+    .text("In Poverty (%)");
+    
+    let healthcareLabel = labelsGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", (margin.left) * 2.8)
+    .attr("y", 0 - (height+12))
+    .attr("value", "healthcare") // value to grab for event listener.
+    .classed("active", true)
+    .text("Lacks Healthcare (%)");
+    
+    let ageLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "age") // value to grab for event listener.
+    .classed("inactive", true)
+    .text("Age (Median)");
+    
+    let smokeLabel = labelsGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", (margin.left) * 2.8)
+    .attr("y", 0 - (height +32))
+    .attr("value", "smokes") // value to grab for event listener.
+    .classed("inactive", true)
+    .text("Smokes (%)");
+    
+    let incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "income") // value to grab for event listener.
+    .classed("inactive", true)
+    .text("Household Income (Median)");
+    
+    let obesityLabel = labelsGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", (margin.left) * 2.8)
+    .attr("y", 0 - (height +52))
+    .attr("value", "obesity") // value to grab for event listener.
+    .classed("inactive", true)
+    .text("Obesity (%)");
+    
+   
