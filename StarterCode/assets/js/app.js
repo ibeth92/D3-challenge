@@ -127,29 +127,25 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
         let ylabel = "Obesity: "
     }
     let toolTip = d3
-    .tip()
-    .attr("class", "tooltip")
-    .style("background", "black")
-    .style("color", "white")
-    .offset([120, -60])
-    .html(function(d) {
-        if (chosenXAxis === "age") {
-
+        .tip()
+        .attr("class", "tooltip")
+        .style("background", "black")
+        .style("color", "white")
+        .offset([120, -60])
+        .html(function(d) {
+            if (chosenXAxis === "age") {
 // Format yAxis tooltip labels as percentages
 // Display age as integer
-return (`${d.state}<hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
-} else if (chosenXAxis !== "poverty" && chosenXAxis !== "age") {
-
-// Display income as dollars
-  return (`${d.state}<hr>${xlabel}$${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
-} else {
-
-// Display poverty as percentage
-  return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
-}      
+                return (`${d.state}<hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
+                } else if (chosenXAxis !== "poverty" && chosenXAxis !== "age") {
+                return (`${d.state}<hr>${xlabel}$${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
+                } else {
+                return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
+                }      
 });
-chosenCircles.call(toolTip);
 
+// Call on tooltip to perform follwing functions
+chosenCircles.call(toolTip);
 // Mouseon event
 chosenCircles.on("mouseover", function(data) {
 toolTip.show(data, this);
