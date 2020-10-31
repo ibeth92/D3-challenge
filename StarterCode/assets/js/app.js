@@ -102,7 +102,7 @@ function renderText(chosenCircleText, newXScale, newYScale, chosenXAxis, chosenY
 
 // Set up function to update chosen circles using tooltip
 function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
-    
+
 // Set up x axis
     if (chosenXAxis === "poverty") {
         let xlabel = "Poverty: ";
@@ -291,5 +291,44 @@ healthData.forEach(function(data) {
              chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, chosenCircles);
 // Update circles text with new text
              chosenCircleText = renderText(chosenCircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
-     
-            
+ // Changes classes to change bold text.
+ if (chosenXAxis === "poverty") {
+    povertyLabel
+        .classed("active", true)
+        .classed("inactive", false);
+
+    ageLabel
+        .classed("active", false)
+        .classed("inactive", true);
+    
+    incomeLabel
+        .classed("active", false)
+        .classed("inactive", true);
+}
+else if (chosenXAxis === "age"){
+    povertyLabel
+        .classed("active", false)
+        .classed("inactive", true);
+
+    ageLabel
+        .classed("active", true)
+        .classed("inactive", false);
+
+    incomeLabel
+        .classed("active", false)
+        .classed("inactive", true);
+}
+else {
+    povertyLabel
+        .classed("active", false)
+        .classed("inactive", true);
+
+    ageLabel
+        .classed("active", false)
+        .classed("inactive", true)
+
+    incomeLabel
+        .classed("active", true)
+        .classed("inactive", false);
+}}
+
