@@ -142,5 +142,18 @@ return (`${d.state}<hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}
   return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
 }      
 });
+chosenCircles.call(toolTip);
+// Mouseon event
+chosenCircles.on("mouseover", function(data) {
+toolTip.show(data, this);
+})
+// Mouseout event
+.on("mouseout", function(data,index) {
+toolTip.hide(data)
+});
+return chosenCircles;
+}
 
+// Import Data
+d3.csv("assets/data/data.csv").then(function(healthData) {
 
