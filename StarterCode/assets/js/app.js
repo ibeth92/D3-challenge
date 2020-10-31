@@ -287,7 +287,7 @@ healthData.forEach(function(data) {
 // Update circles with new x values
              chosenCircles = renderCircles(chosenCircles, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 // Update tool tip
-             circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+             chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, chosenCircles);
 // Update circles text with new text
              chosenCircleText = renderText(chosenCircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
      
