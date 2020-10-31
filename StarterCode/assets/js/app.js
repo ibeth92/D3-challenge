@@ -153,7 +153,8 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
 
 // Mouseout event
         .on("mouseout", function(data,index) {
-        toolTip.hide(data)
+        toolTip
+        .hide(data)
         });
     return chosenCircles;
     }
@@ -162,13 +163,13 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
 d3.csv("assets/data/data.csv")
     .then(function(healthData) {
 // Parse data using chosen parameters
-healthData.forEach(function(data) {
-    data.poverty = +data.poverty;
-    data.healthcare = +data.healthcare;
-    data.age = +data.age;
-    data.income = +data.income;
-    data.smokes = +data.smokes;
-    data.obesity = +data.obesity;
+    healthData.forEach(function(data) {
+        data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
+        data.age = +data.age;
+        data.income = +data.income;
+        data.smokes = +data.smokes;
+        data.obesity = +data.obesity;
     });
     
 // Set up linear scale function
@@ -180,51 +181,51 @@ healthData.forEach(function(data) {
     let leftAxis = d3.axisLeft(yLinearScale);
     
 // Append x axis
-    let xAxis = chosenCircles
-    .append("g")
-    .classed("x-axis", true)
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+    let xAxis = allCharts
+        .append("g")
+        .classed("x-axis", true)
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
 
 // Append y axis
-    let yAxis = chosenCircles
-    .append("g")
-    .classed("y-axis", true)
-    .call(leftAxis);
+    let yAxis = allCharts
+        .append("g")
+        .classed("y-axis", true)
+        .call(leftAxis);
 
 // Create circles
     let chosenCircles = allCharts
-    .selectAll("circle")
-    .data(healthData)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", "15")
-    .attr("fill", "pink")
-    .attr("opacity", ".5");
+        .selectAll("circle")
+        .data(healthData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xLinearScale(d[chosenXAxis]))
+        .attr("cy", d => yLinearScale(d[chosenYAxis]))
+        .attr("r", "15")
+        .attr("fill", "pink")
+        .attr("opacity", ".5");
     
 // Import abbreviated text to circles
-    let chosenCircleText = allCharts
-    .selectAll()
-    .data(healthData)
-    .enter()
-    .append("text")
-    .text(d => (d.abbr))
-    .attr("x", d => xLinearScale(d[chosenXAxis]))
-    .attr("y", d => yLinearScale(d[chosenYAxis]))
-    .style("font-size", "11px")
-    .style("text-anchor", "middle")
-    .style('fill', 'black');
+    let chosencircleText = allCharts
+        .selectAll()
+        .data(healthData)
+        .enter()
+        .append("text")
+        .text(d => (d.abbr))
+        .attr("x", d => xLinearScale(d[chosenXAxis]))
+        .attr("y", d => yLinearScale(d[chosenYAxis]))
+        .style("font-size", "11px")
+        .style("text-anchor", "middle")
+        .style('fill', 'black');
 // Append chart 
     let chartLabels = allCharts
-    .append("g")
-    .attr("transform", `translate(${width / 2}, ${height + 20})`);
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height + 20})`);
     
     let povertyLabel = chartLabels
-    .append("text")
-    .attr("x", 0)
-    .attr("y", 0)
+        .append("text")
+        .attr("x", 0)
+        .attr("y", 0)
     .attr("value", "poverty") 
     .classed("active", true)
     .text("In Poverty (%)");
@@ -291,7 +292,7 @@ healthData.forEach(function(data) {
 // Update tool tip
              chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, chosenCircles);
 // Update circles text with new text
-             chosenCircleText = renderText(chosenCircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+             chosencircleText = renderText(chosencircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
  // Change classes
  if (chosenXAxis === "poverty") {
     povertyLabel
