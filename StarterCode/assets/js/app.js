@@ -193,7 +193,7 @@ healthData.forEach(function(data) {
     .call(leftAxis);
 
 // Create circles
-    let chosenCircles = chosenCircles
+    let chosenCircles = allCharts
     .selectAll("circle")
     .data(healthData)
     .enter()
@@ -205,7 +205,8 @@ healthData.forEach(function(data) {
     .attr("opacity", ".5");
     
 // Import abbreviated text to circles
-    let chosenCircleText = chosenCircles.selectAll()
+    let chosenCircleText = allCharts
+    .selectAll()
     .data(healthData)
     .enter()
     .append("text")
@@ -216,10 +217,12 @@ healthData.forEach(function(data) {
     .style("text-anchor", "middle")
     .style('fill', 'black');
 // Append chart 
-    let chartLabels = chartGroup.append("g")
+    let chartLabels = allCharts
+    .append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
     
-    let povertyLabel = chartLabels.append("text")
+    let povertyLabel = chartLabels
+    .append("text")
     .attr("x", 0)
     .attr("y", 0)
     .attr("value", "poverty") 
