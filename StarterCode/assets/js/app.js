@@ -118,7 +118,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
   
 // Set up y axis
     if (chosenYAxis === "healthcare") {
-        let ylabel = "Lacks Healthcare: ";
+        let ylabel = "Healthcare: ";
     }
     else if (chosenYAxis === "smokes") {
         let ylabel = "Smokers: "
@@ -142,21 +142,21 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
                 } else {
                 return (`${d.state}<hr>${xlabel}${d[chosenXAxis]}%<br>${ylabel}${d[chosenYAxis]}%`);
                 }      
-});
+        });
 
 // Call on tooltip to perform follwing functions
-chosenCircles.call(toolTip);
+        chosenCircles.call(toolTip);
 // Mouseon event
-chosenCircles.on("mouseover", function(data) {
-toolTip.show(data, this);
-})
+        chosenCircles.on("mouseover", function(data) {
+            toolTip.show(data, this);
+        })
 
 // Mouseout event
-.on("mouseout", function(data,index) {
-toolTip.hide(data)
-});
-return chosenCircles;
-}
+        .on("mouseout", function(data,index) {
+        toolTip.hide(data)
+        });
+    return chosenCircles;
+    }
 
 // Import data from CSV
 d3.csv("assets/data/data.csv")
