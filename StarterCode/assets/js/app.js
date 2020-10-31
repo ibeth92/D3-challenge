@@ -216,53 +216,79 @@ healthData.forEach(function(data) {
     .style("font-size", "11px")
     .style("text-anchor", "middle")
     .style('fill', 'black');
-    
-    let labelsGroup = chartGroup.append("g")
+// Append chart 
+    let chartLabels = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
     
-    let povertyLabel = labelsGroup.append("text")
+    let povertyLabel = chartLabels.append("text")
     .attr("x", 0)
     .attr("y", 0)
-    .attr("value", "poverty") // value to grab for event listener.
+    .attr("value", "poverty") 
     .classed("active", true)
     .text("In Poverty (%)");
     
-    let healthcareLabel = labelsGroup.append("text")
+    let healthcareLabel = chartLabels.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", (margin.left) * 2.8)
     .attr("y", 0 - (height+12))
-    .attr("value", "healthcare") // value to grab for event listener.
+    .attr("value", "healthcare") 
     .classed("active", true)
     .text("Lacks Healthcare (%)");
     
-    let ageLabel = labelsGroup.append("text")
+    let ageLabel = chartLabels.append("text")
     .attr("x", 0)
     .attr("y", 20)
-    .attr("value", "age") // value to grab for event listener.
+    .attr("value", "age") 
     .classed("inactive", true)
     .text("Age (Median)");
     
-    let smokeLabel = labelsGroup.append("text")
+    let smokeLabel = chartLabels.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", (margin.left) * 2.8)
     .attr("y", 0 - (height +32))
-    .attr("value", "smokes") // value to grab for event listener.
+    .attr("value", "smokes") 
     .classed("inactive", true)
     .text("Smokes (%)");
     
-    let incomeLabel = labelsGroup.append("text")
+    let incomeLabel = chartLabels.append("text")
     .attr("x", 0)
     .attr("y", 40)
-    .attr("value", "income") // value to grab for event listener.
+    .attr("value", "income") 
     .classed("inactive", true)
     .text("Household Income (Median)");
     
-    let obesityLabel = labelsGroup.append("text")
+    let obesityLabel = chartLabels.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", (margin.left) * 2.8)
     .attr("y", 0 - (height +52))
-    .attr("value", "obesity") // value to grab for event listener.
+    .attr("value", "obesity") 
     .classed("inactive", true)
     .text("Obesity (%)");
+
+// Use update tooltip function 
+     chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, chosenCircles);
     
-   
+// Click on x axis
+     chartLabels.selectAll("text")
+     .on("click", function() {
+// Retrieve value
+       let value = d3.select(this).attr("value");
+       console.log(value)
+     
+// Select x axes
+       if (true) {
+           if (value === "poverty" || value === "age" || value === "income") {
+// Change chosenXAxis to value
+             chosenXAxis = value;
+// Update x scale for new data
+             xLinearScale = xScale(healthData, chosenXAxis);
+// Render new x axis
+             xAxis = renderXAxes(xLinearScale, xAxis);
+// Update circles with new x values
+             chosenCircles = renderCircles(chosenCircles, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+// Update tool tip
+             circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+// Update circles text with new text
+             chosenCircleText = renderText(chosenCircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+     
+            
