@@ -16,23 +16,25 @@ let height = svgHeight - margin.top - margin.bottom;
 
 // Create SVG wrapper
 // Append SVG group to hold chart
-let svg = d3.select("#scatter")
-  .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+let svg = d3
+    .select("#scatter")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
 
 // Append chart SVG group
 // Shift by left and top margins
-let chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+let allCharts = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Set up x and y Axis labels
-let chartData = null;
+let dataCharts = null;
 let chosenXAxis = 'poverty'
 let chosenYAxis = 'healthcare'
 let xAxisLabels = ["poverty", "age", "income"]; 
 let yAxisLabels = ["obesity", "smokes", "healthcare"];
-let labelsTitle = { "poverty": "In Poverty (%)", 
+let titleLabels = { "poverty": "In Poverty (%)", 
                     "age": "Age (Median)", 
                     "income": "Household Income (Median)",
                     "obesity": "Obese (%)", 
@@ -48,11 +50,11 @@ function xScale(healthData,chosenXAxis){
 }
 
 // Set up y scale
-function yScale(healthData, chosenYAxis) {
+function yScale(healthcareData, chosenYAxis) {
 
 // Create linear scale
   let yLinearScale = d3.scaleLinear()
-      .domain([d3.min(healthData, d => d[chosenYAxis]) * .9,d3.max(healthData, d => d[chosenYAxis]) * 1.1 ])
+      .domain([d3.min(healthcareData, d => d[chosenYAxis]) * .9,d3.max(healthcareData, d => d[chosenYAxis]) * 1.1 ])
       .range([height, 0]);
   return yLinearScale;
 }
@@ -91,17 +93,17 @@ function renderCircles(chosenCircles, newXScale, newYScale, chosenXAxis, chosenY
 
 // Set up function to update text in circles as they render
 // Set up to transition to new text
-function renderText(chosenCircleText, newXScale, newYScale, chosenXAxis, chosenYAxis) {
-    chosenCircleText
+function renderText(chosencircleText, newXScale, newYScale, chosenXAxis, chosenYAxis) {
+    chosencircleText
         .transition()
         .duration(1000)
         .attr("x", d => newXScale(d[chosenXAxis]))
         .attr("y", d => newYScale(d[chosenYAxis]));
-    return chosenCircleText;
+    return chosencircleText;
 }
 
 // Set up function to update chosen circles using tooltip
-function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
+function updateToolTip(chosenXAxis, chosenYAxis, chosencircles) {
 
 // Set up x axis
     if (chosenXAxis === "poverty") {
