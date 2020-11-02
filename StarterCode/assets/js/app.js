@@ -202,7 +202,7 @@ d3.csv("assets/data/data.csv")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
         .attr("r", "15")
-        .attr("fill", "pink")
+        .attr("fill", "green")
         .attr("opacity", ".5");
     
 // Import abbreviated text to circles
