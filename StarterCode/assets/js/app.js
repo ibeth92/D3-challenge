@@ -203,7 +203,7 @@ d3.csv("assets/data/data.csv")
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
         .attr("r", "15")
         .attr("fill", "green")
-        .attr("opacity", ".5");
+        .attr("opacity", ".4");
     
 // Import abbreviated text to circles
     let chosencircleText = allCharts
@@ -338,11 +338,11 @@ d3.csv("assets/data/data.csv")
 // Update y axis 
             yAxis = renderYAxes(yLinearScale, yAxis);
 // Update circles with new x values
-            circlesGroup = renderCircles(circlesGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+            chosenCircles = renderCircles(chosenCircles, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 // Update tool tips with new data
-            circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+            chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 // Update circles text 
-            circletextGroup = renderText(circletextGroup, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
+            chosencircleText = renderText(chosencircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 // Update classes
             if (chosenYAxis === "healthcare") {
                 healthcareLabel
