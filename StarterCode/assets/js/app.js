@@ -258,7 +258,6 @@ d3.csv("assets/data/data.csv")
         .attr("value", "income") 
         .classed("inactive", true)
         .text("Household Income (Median)");
-    
     let obesityLabel = chartLabels
         .append("text")
         .attr("transform", "rotate(-90)")
@@ -340,7 +339,7 @@ d3.csv("assets/data/data.csv")
 // Update circles with new x values
             chosenCircles = renderCircles(chosenCircles, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 // Update tool tips with new data
-            chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+            chosenCircles = updateToolTip(chosenXAxis, chosenYAxis, chosenCircles);
 // Update circles text 
             chosencircleText = renderText(chosencircleText, xLinearScale, yLinearScale, chosenXAxis, chosenYAxis);
 // Update classes
