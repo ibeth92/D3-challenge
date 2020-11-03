@@ -126,8 +126,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
     else {
         let ylabel = "Obesity: "
     }
-    let toolTip = d3
-        .tip()
+    let toolTip = d3.tip()
         .attr("class", "tooltip")
         .style("background", "black")
         .style("color", "white")
