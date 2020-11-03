@@ -126,6 +126,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, chosenCircles) {
     else {
         let ylabel = "Obesity: "
     }
+// Check .tip() error? This worked in class activity?
     let toolTip = d3.tip()
         .attr("class", "tooltip")
         .style("background", "black")
